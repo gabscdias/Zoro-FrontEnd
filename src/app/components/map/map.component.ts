@@ -34,18 +34,16 @@ export class MapComponent implements AfterViewInit {
       this.latitude = location.coords.latitude;
       this.longitude = location.coords.longitude;
 
-      this.initMap();
+      if(this.latitude && this.longitude){
+        this.initMap();
+      }
     })
-
-    
 
     // Enviar a localização periodicamente usando o serviço - Serviço iniciado pelo motoboy
     this.geolocationService.startSendingLocation().subscribe((location) => {});
 
-   
-
     // Atualizar a localização periodicamente usando o serviço
-    this.subscription = this.geolocationService
+      this.subscription = this.geolocationService
       .getLocationUpdates(1)
       .subscribe((location) => {
         this.updateMarker(location.latitude, location.longitude);
@@ -59,22 +57,7 @@ export class MapComponent implements AfterViewInit {
     }
   }
 
-  ngOnInit(): void {
-    // this.geolocationService.startSendingLocation().subscribe(
-    //   () => {
-    //     this.initMap();
-    //     setTimeout(() => {
-    //       if (this.map) {
-    //         this.map.invalidateSize();
-    //       }
-    //     }, 0);
-    //     this.trackLocation();
-    //   },
-    //   (error) => console.error('Error sending location:', error)
-    // );
-  }
-
-  initMap(): void {
+  initMap(): void {debugger;
     // Inicializar o mapa
     this.map = new Map({
       target: 'map',
@@ -84,7 +67,7 @@ export class MapComponent implements AfterViewInit {
         }),
       ],
       view: new View({
-        center: fromLonLat([-46.633308, -23.55052]), // Posição inicial (São Paulo)
+        center: fromLonLat([this.latitude, this.longitude]),
         zoom: 16,
       }),
     });

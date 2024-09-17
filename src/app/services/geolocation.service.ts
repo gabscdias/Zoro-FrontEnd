@@ -9,7 +9,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 })
 export class GeolocationService {
   private apiUrl = 'https://your-server-api.com/location'; // Substitua pela URL do seu servidor
-  private updateInterval = 10000; // Intervalo em milissegundos para enviar a localização (10 segundos)
+  private updateInterval = 2000; // Intervalo em milissegundos para enviar a localização (10 segundos)
 
   constructor(private http: HttpClient) {}
 
@@ -58,7 +58,7 @@ export class GeolocationService {
   public getLocationUpdates(
     motoboyId: number
   ): Observable<{ latitude: number; longitude: number }> {
-    return interval(10000).pipe(
+    return interval(2000).pipe(
       // Atualiza a cada 5 segundos
       map(() => {
         let locationData = {
