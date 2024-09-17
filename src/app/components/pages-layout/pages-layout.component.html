@@ -1,0 +1,193 @@
+<main>
+  <section class="header-section">
+    <header class="header">
+      <div class="header-content">
+        <div class="button-side-bar">
+          <!-- <app-sidebar></app-sidebar> -->
+          <button (click)="toggleSidebar()">
+            <span nz-icon nzType="menu-unfold" nzTheme="outline"></span>
+          </button>
+        </div>
+        <div class="title">
+          <h1>{{ title }}</h1>
+        </div>
+        <div class="icons">
+          <span nz-icon nzType="bell" nzTheme="outline"></span>
+          <span nz-icon nzType="bell" nzTheme="fill"></span>
+        </div>
+      </div>
+    </header>
+  </section>
+  <nav class="sidebar" [class.open]="isOpen">
+    <div class="sidebar-content">
+      <div class="title-sidebar">
+        <div>
+          <h1>Menu</h1>
+        </div>
+        <div class="close-menu">
+          <button (click)="toggleSidebar()">
+            <span nz-icon nzType="menu-fold" nzTheme="outline"></span>
+          </button>
+        </div>
+      </div>
+      <div class="divider">
+        <div></div>
+      </div>
+      <ul>
+        <li [ngClass]="{ active: this.selectedFeature === featureEnum.Mesas }">
+          <span
+            class="icon menu"
+            nz-icon
+            nzType="table"
+            nzTheme="outline"
+          ></span
+          ><a (click)="navigateTo(featureEnum.Mesas)">Mesas</a>
+        </li>
+        <li
+          [ngClass]="{ active: this.selectedFeature === featureEnum.Ajustes }"
+        >
+          <span
+            class="icon menu"
+            nz-icon
+            nzType="control"
+            nzTheme="outline"
+          ></span>
+          <a (click)="navigateTo(featureEnum.Ajustes)">Ajustes</a>
+        </li>
+        <li
+          [ngClass]="{ active: this.selectedFeature === featureEnum.Historico }"
+        >
+          <span
+            class="icon menu"
+            nz-icon
+            nzType="read"
+            nzTheme="outline"
+          ></span>
+          <a (click)="navigateTo(featureEnum.Historico)">Histórico</a>
+        </li>
+        <li
+          [ngClass]="{ active: this.selectedFeature === featureEnum.Delivery }"
+        >
+          <span
+            class="icon menu"
+            nz-icon
+            nzType="rocket"
+            nzTheme="outline"
+          ></span>
+          <a (click)="navigateTo(featureEnum.Delivery)">Delivery</a>
+        </li>
+        <li
+          [ngClass]="{
+            active: this.selectedFeature === featureEnum.Configuracoes
+          }"
+        >
+          <span
+            class="icon menu"
+            nz-icon
+            nzType="setting"
+            nzTheme="outline"
+          ></span>
+          <a (click)="navigateTo(featureEnum.Configuracoes)">Configurações</a>
+        </li>
+        <li
+          [ngClass]="{
+            active: this.selectedFeature === featureEnum.Configuracoes
+          }"
+        >
+          <span
+            class="icon menu"
+            nz-icon
+            nzType="setting"
+            nzTheme="outline"
+          ></span>
+          <a (click)="navigateTo(featureEnum.Entregador)">Entregadores</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <section class="main-section">
+    @if(this.selectedFeature == featureEnum.Mesas){
+    <app-mesas-layout></app-mesas-layout>
+    } @if(this.selectedFeature == featureEnum.Ajustes){
+    <app-ajustes-layout></app-ajustes-layout>
+    } @if(this.selectedFeature == featureEnum.Historico){
+    <app-historico-layout></app-historico-layout>
+    } @if(this.selectedFeature == featureEnum.Delivery){
+    <app-delivery-layout></app-delivery-layout>
+    } @if(this.selectedFeature == featureEnum.Configuracoes){
+    <app-configuracoes-layout></app-configuracoes-layout>
+    } @if(this.selectedFeature == featureEnum.Entregador){
+    <app-entregador-layout></app-entregador-layout>
+    }
+  </section>
+  <section class="footer-section">
+    <footer class="footer">
+      <nav class="footer-nav">
+        <a
+          (click)="navigateTo(featureEnum.Mesas)"
+          class="nav-item"
+          [ngClass]="{
+            'nav-item': true,
+            active: this.selectedFeature === featureEnum.Mesas
+          }"
+        >
+          <span
+            class="icon menu"
+            nz-icon
+            nzType="table"
+            nzTheme="outline"
+          ></span>
+          Mesas
+        </a>
+        <a
+          (click)="navigateTo(featureEnum.Historico)"
+          class="nav-item"
+          [ngClass]="{
+            'nav-item': true,
+            active: this.selectedFeature === featureEnum.Historico
+          }"
+        >
+          <span
+            class="icon menu"
+            nz-icon
+            nzType="read"
+            nzTheme="outline"
+          ></span>
+          Histórico
+        </a>
+        <a
+          (click)="navigateTo(featureEnum.Delivery)"
+          class="nav-item"
+          [ngClass]="{
+            'nav-item': true,
+            active: this.selectedFeature === featureEnum.Delivery
+          }"
+        >
+          <span
+            class="icon menu"
+            nz-icon
+            nzType="rocket"
+            nzTheme="outline"
+          ></span>
+          Delivery
+        </a>
+        <a
+          (click)="navigateTo(featureEnum.Ajustes)"
+          class="nav-item"
+          [ngClass]="{
+            'nav-item': true,
+            active: this.selectedFeature === featureEnum.Ajustes
+          }"
+        >
+          <span
+            class="icon menu"
+            nz-icon
+            nzType="control"
+            nzTheme="outline"
+          ></span>
+          Ajustes
+        </a>
+      </nav>
+    </footer>
+  </section>
+</main>

@@ -1,0 +1,27 @@
+<main>
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Buscar..."
+      [(ngModel)]="searchTerm"
+      (input)="searchTable()"
+    />
+  </div>
+
+  <!-- Grid de Mesas -->
+  <div class="table-grid">
+    <div
+      class="table-card"
+      *ngFor="let mesa of filteredData"
+      [ngStyle]="{
+        'background-color': getBackgroundColor(mesa.statusId),
+        color: getTextColor(mesa.statusId)
+      }"
+    >
+      <div class="card-content">
+        <h2>{{ mesa.name }}</h2>
+        <span class="status">{{ mesa.statusName }}</span>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,30 @@
+<app-login-layout
+  title="Login into your account"
+  primaryBtnText="Entrar"
+  secondaryBtnText="Criar nova conta"
+  (submit)="submit()"
+  (navigate)="navigate()"
+>
+  <form [formGroup]="loginForm">
+    <app-input
+      formControlName="document"
+      inputName="document"
+      type="document"
+      label=""
+      placeholder="Insira seu CPF ou CNPJ"
+    >
+      <img src="/assets/svg/password-icon.svg"/>
+    </app-input>
+
+    <app-input
+      formControlName="password"
+      inputName="password"
+      type="password"
+      label=""
+      placeholder="Senha"
+    >
+      <img src="/assets/svg/email-icon.svg"/>
+    </app-input>
+    <span>Esqueceu a senha?</span>
+  </form>
+</app-login-layout>

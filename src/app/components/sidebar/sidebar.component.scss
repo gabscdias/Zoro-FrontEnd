@@ -1,0 +1,127 @@
+$main: #0070cc;
+$dark: mix(black, $main, 20%);
+$text: #fff;
+
+@mixin transition-max-height {
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      transition: max-height .5s #{.65 + $i * .02}s ease-in;
+    }
+  }
+}
+
+@mixin media-sm {
+  @media (min-width: 650px) {
+    @content;
+  }
+}
+
+@mixin alpha-attribute($attribute, $color, $background) {
+  $percent: alpha($color) * 100%;
+  $opaque: opacify($color, 1);
+  $solid-color: mix($opaque, $background, $percent);
+  #{$attribute}: $solid-color;
+  #{$attribute}: $color;
+}
+
+@function getColor($color) {
+  @if (lightness($main) > 50) {
+      @return rgba(black, .8);
+  } @else {
+      @return rgba(white, .8);
+  }
+}
+$text: getColor($main);
+%sidebar-hover {
+  @include alpha-attribute('background-color', rgba($main, 0.6), white);
+}
+.primnav {
+  position: fixed;
+  height: 58px;
+  width: 100vw;
+  font-size: .8em;
+  text-transform: uppercase;
+  background-color: lighten($main, 5%);
+  display: flex;
+  flex-direction: column;
+  transition: height 246ms .5s ease;
+  padding-top: 58px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  box-sizing: border-box;
+  z-index: 1;
+  @include media-sm {
+    height: 100vh;
+    width: 58px;
+    transition: width 246ms .5s ease;
+  }
+
+  > ul {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  li {
+    font-weight: 400;
+    position: relative;
+    &:hover {
+      @extend %sidebar-hover;
+    }
+    .tag {
+      @include alpha-attribute('background-color', rgba($main, .8), black);
+      color: $text;
+      @include alpha-attribute('color', rgba($text, .9), black);
+      padding: 0 .5em;
+      border-radius: 2em;
+      margin-left: auto;
+      margin-right: .75em;
+    }
+    a {
+      position: relative;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      @include alpha-attribute('color', rgba($text, 0.8), white);
+      text-decoration: none;
+    }
+
+  }
+  .icon {
+    height: 20px;
+    flex-shrink: 0;
+    width: 20px;
+    padding: 19px;
+    margin-right: 5px;
+    padding-bottom: 15px;
+    @include alpha-attribute('color', rgba($text, .9), black);
+  }
+  expand:hover {
+    @extend %sidebar-hover;
+  }
+}
+
+.secnav {
+  margin-left: 63px;
+  border-left: 1px solid black;
+  @include alpha-attribute('border-left-color', rgba($main, .9), black);
+  overflow: hidden;
+
+  li {
+    @include alpha-attribute('color', rgba($text, .9), black);
+    max-height: 100px;
+    transition: max-height .1s;
+
+    @include media-sm {
+      max-height: 0px;
+      transition: max-height .5s .5s;
+    }
+
+    a {
+      text-transform: initial;
+      display: block;
+      color: inherit;
+      padding: .75em 10px;
+    }
+  }
+}
