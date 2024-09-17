@@ -20,10 +20,8 @@ import { Subscription } from 'rxjs';
   styleUrl: './map.component.scss',
 })
 export class MapComponent implements AfterViewInit {
-  latitude: number = -19.967056;
-  longitude: number = -44.056889;
-  latitudeSimulada = -19.9514352;
-  longitudeSimulada = -44.0631296;
+  latitude: number = 0;
+  longitude: number = 0;
 
   private map: Map | undefined;
   private marker: Feature | undefined;
@@ -32,10 +30,19 @@ export class MapComponent implements AfterViewInit {
   constructor(private geolocationService: GeolocationService) {}
 
   ngAfterViewInit(): void {
-    this.initMap();
+    this.geolocationService.getCurrentLocation().subscribe((location) => {
+      this.latitude = location.coords.latitude;
+      this.longitude = location.coords.longitude;
+
+      this.initMap();
+    })
+
+    
 
     // Enviar a localização periodicamente usando o serviço - Serviço iniciado pelo motoboy
     this.geolocationService.startSendingLocation().subscribe((location) => {});
+
+   
 
     // Atualizar a localização periodicamente usando o serviço
     this.subscription = this.geolocationService

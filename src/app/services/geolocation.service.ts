@@ -24,7 +24,7 @@ export class GeolocationService {
     );
   }
 
-  private getCurrentLocation(): Observable<GeolocationPosition> {
+  getCurrentLocation(): Observable<GeolocationPosition> {
     return new Observable<GeolocationPosition>((observer) => {
       const options: PositionOptions = {
         enableHighAccuracy: true, // Tenta usar GPS para obter a localização mais precisa
@@ -55,7 +55,9 @@ export class GeolocationService {
     return of(locationData);
   }
 
-  public getLocationUpdates(motoboyId: number): Observable<{ latitude: number, longitude: number }> {
+  public getLocationUpdates(
+    motoboyId: number
+  ): Observable<{ latitude: number; longitude: number }> {
     return interval(10000).pipe(
       // Atualiza a cada 5 segundos
       map(() => {
@@ -73,11 +75,11 @@ export class GeolocationService {
         }
 
         console.log(locationData);
-        
+
         // Exemplo de alteração das coordenadas (simulação)
         // this.currentLocation.latitude += 0.0001;  // Simular movimentação
         // this.currentLocation.longitude += 0.0001;
-        return (locationData);
+        return locationData;
       })
     );
   }
