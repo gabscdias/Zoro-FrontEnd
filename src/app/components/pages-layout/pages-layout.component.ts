@@ -35,7 +35,7 @@ export class PagesLayoutComponent {
     { Id: 3, Name: 'Histórico' },
     { Id: 4, Name: 'Delivery' },
     { Id: 5, Name: 'Configurações' },
-    { Id: 6, Name: 'Intregadores' },
+    { Id: 6, Name: 'Entregadores' },
   ];
 
   featureEnum: any = FeatureEnum;
