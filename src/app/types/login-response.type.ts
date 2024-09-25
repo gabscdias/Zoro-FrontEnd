@@ -1,7 +1,6 @@
-import { Establishments } from "./establishments.type"
-
 export type LoginResponse = {
-  token: string,
-  name: string,
-  establishments: Establishments[]
-}
+  tokenType: string;
+  accessToken: string;
+  expiresIn: 0;
+  refreshToken: string;
+};
