@@ -1,0 +1,28 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.7); /* Cor de fundo com opacidade */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    z-index: 1000; /* Deve ser maior que outros elementos da página */
+  }
+  
+  .spin-centered {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .spin-centered .ant-spin-text {
+    margin-top: 10px; /* Espaçamento entre o spinner e o texto */
+    font-size: 16px;
+    left: -25;
+    color: #1890ff; /* Cor do texto */
+    text-align: center; /* Garante que o texto esteja alinhado ao centro */
+  }

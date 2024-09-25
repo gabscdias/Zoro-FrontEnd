@@ -59,7 +59,6 @@ export class LoginComponent {
       };
       this.loginService.login(loginRequest).subscribe({
         next: () => {
-          debugger;
           let estabelecimentos;
           this.establishmentUserService.getEstablishmentsUser().subscribe(
             (data) => {
