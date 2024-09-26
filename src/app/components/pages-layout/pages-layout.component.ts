@@ -7,7 +7,7 @@ import { AjustesLayoutComponent } from '../ajustes-layout/ajustes-layout.compone
 import { DeliveryLayoutComponent } from '../delivery-layout/delivery-layout.component';
 import { ConfiguracoesLayoutComponent } from '../configuracoes-layout/configuracoes-layout.component';
 import { Features } from '../../types/features.type';
-import { FeatureEnum } from '../../Enums/features.enum';
+import { FeatureEnum } from '../../enums/features.enum';
 import { CommonModule } from '@angular/common';
 import { EntregadorLayoutComponent } from '../entregador-layout/entregador-layout.component';
 
