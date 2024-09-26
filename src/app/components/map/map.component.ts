@@ -57,7 +57,7 @@ export class MapComponent implements AfterViewInit {
     }
   }
 
-  initMap(): void {debugger;
+  initMap(): void {
     // Inicializar o mapa
     this.map = new Map({
       target: 'map',

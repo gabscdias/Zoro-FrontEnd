@@ -12,11 +12,18 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { cpfCnpjValidator } from '../../utils/cpfCnpjValidator';
 import { CommonModule } from '@angular/common';
+import { LoginRequest } from '../../types/login-request.type';
+import { EstablishmentUserService } from '../../services/establishment-user.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [LoginLayoutComponent, ReactiveFormsModule, InputComponent, CommonModule],
+  imports: [
+    LoginLayoutComponent,
+    ReactiveFormsModule,
+    InputComponent,
+    CommonModule,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -26,7 +33,8 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private loginService: LoginService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private establishmentUserService: EstablishmentUserService
   ) {
     this.loginForm = new FormGroup({
       //Criar validador para documento(CPF ou CNPJ)
@@ -40,24 +48,38 @@ export class LoginComponent {
 
   submit() {
     if (this.loginForm.valid) {
-      this.router.navigate(['/index'])
-      // this.loginService
-      //   .login(this.loginForm.value.document, this.loginForm.value.password)
-      //   .subscribe({
-      //     next: () => {
-      //       const establishments = JSON.parse(
-      //         sessionStorage.getItem('establishments') || '[]'
-      //       );
-      //       this.toastrService.success('Login feito com sucesso!');
-      //       // usuario vinculado a mais de um estabelimento, mostra tela para login no estabelecimento se vinculado apenas em 1, mostra as mesas diretamente
-      //       if (establishments.length > 1) {
-      //         this.router.navigate(['/estabelecimento']);
-      //       } else {
-      //         this.router.navigate(['/mesas']);
-      //       }
-      //     },
-      //     error: () => this.toastrService.error('Erro ao realizar login!'),
-      //   });
+      const loginRequest: LoginRequest = {
+        userLogin: this.loginForm.value.document,
+        password: this.loginForm.value.password,
+        twoFactorCode: '',
+        twoFactorRecoveryCode: '',
+        useCookies: true,
+        useSessionCookies: true,
+        serviceProvider: null,
+      };
+      this.loginService.login(loginRequest).subscribe({
+        next: () => {
+          let estabelecimentos;
+          this.establishmentUserService.getEstablishmentsUser().subscribe(
+            (data) => {
+              estabelecimentos = data;
+              if (estabelecimentos != null) {
+                if (estabelecimentos.length > 1) {
+                  this.router.navigate(['/estabelecimentos']);
+                } else {
+                  this.router.navigate(['/index']);
+                }
+              }
+            },
+            (error) => {
+              console.log('Erro ao carregar estabelecimentos.');
+            }
+          );
+        },
+        error: () => {
+          this.toastrService.error('Erro ao realizar login!');
+        },
+      });
     } else {
       this.invalidFields(this.loginForm);
     }
@@ -92,7 +114,9 @@ export class LoginComponent {
             console.log(
               `${field} deve ter no mínimo ${errors['minlength'].requiredLength} caracteres.`
             );
-            this.toastrService.error(`A senha deve ter no mínimo ${errors['minlength'].requiredLength} caracteres.`);
+            this.toastrService.error(
+              `A senha deve ter no mínimo ${errors['minlength'].requiredLength} caracteres.`
+            );
           }
         }
       }

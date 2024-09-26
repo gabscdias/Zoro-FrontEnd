@@ -1,23 +1,38 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginResponse } from '../types/login-response.type';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { LoginRequest } from '../types/login-request.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
+  private apiUrl = environment.apiUrl; // Usa a URL configurada
+
   constructor(private httpClient: HttpClient) {}
 
-  login(document: string, password: string) {
+  login(loginRequst: LoginRequest): Observable<LoginResponse> {
     return this.httpClient
-      .post<LoginResponse>('/login', { document, password })
+      .post<any>(
+        `${this.apiUrl}/identity/customLogin`,
+        loginRequst
+      )
       .pipe(
-        tap((value) => {
-          sessionStorage.setItem('auth-token', value.token);
-          sessionStorage.setItem('name', value.name);
-          sessionStorage.setItem('establishments', JSON.stringify(value.establishments));
+        tap((response) => {
+          // Salva o token (por exemplo, no localStorage)
+          localStorage.setItem('accessToken', response.accessToken);
+          localStorage.setItem('refreshToken', response.refreshToken);
         })
       );
   }
+
+  // logout() {
+  //   localStorage.removeItem('refreshToken');
+  // }
+
+  // isAuthenticated(): boolean {
+  //   return !!localStorage.getItem('refreshToken');
+  // }
 }

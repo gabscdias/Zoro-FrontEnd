@@ -57,7 +57,6 @@ export class MesasLayoutComponent {
   }
 
   selectedTable(event: Event){
-    debugger;
     console.log(event);
   }
 }
