@@ -4,9 +4,10 @@
       <div class="header-content">
         <div class="button-side-bar">
           <!-- <app-sidebar></app-sidebar> -->
-          <button (click)="toggleSidebar()">
+          <!-- <button (click)="toggleSidebar()">
             <span nz-icon nzType="menu-unfold" nzTheme="outline"></span>
-          </button>
+          </button> -->
+          <button mat-raised-button (click)="openBottomSheet()"><span nz-icon nzType="menu-unfold" nzTheme="outline"></span></button>
         </div>
         <div class="title">
           <h1>{{ title }}</h1>
@@ -155,7 +156,7 @@
           ></span>
           Histórico
         </a>
-        <a
+        <!-- <a
           (click)="navigateTo(featureEnum.Delivery)"
           class="nav-item"
           [ngClass]="{
@@ -170,7 +171,7 @@
             nzTheme="outline"
           ></span>
           Delivery
-        </a>
+        </a> -->
         <a
           (click)="navigateTo(featureEnum.Ajustes)"
           class="nav-item"

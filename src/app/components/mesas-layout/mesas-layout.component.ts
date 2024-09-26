@@ -28,7 +28,7 @@ export class MesasLayoutComponent {
   statusBgColors: { [key: number]: string } = {
     1: '#e6e6e6',
     2: '#7001FD',
-    3: '#1E2772',
+    3: '#7001FD',
     // adicione mais cores conforme necessário
   };
 

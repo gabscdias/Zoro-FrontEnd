@@ -1,0 +1,9 @@
+<div class="menu-container" (swipedown)="closeMenu()">
+  <div class="top-bar"></div>
+  <div class="menu-grid">
+    <div class="menu-item" *ngFor="let item of features">
+      <span nz-icon [nzType]="item.Icon" nzTheme="outline" class="icon"></span>
+      <span>{{ item.Name }}</span>
+    </div>
+  </div>
+</div>

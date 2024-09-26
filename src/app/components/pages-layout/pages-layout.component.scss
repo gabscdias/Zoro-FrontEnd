@@ -11,11 +11,13 @@ main {
   color: $text-color;
 
   .header-section {
-    flex-grow: 0.08;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    position: static;
+    padding-top: 16px;
+    padding-bottom: 16px;
 
     .header {
       position: fixed;

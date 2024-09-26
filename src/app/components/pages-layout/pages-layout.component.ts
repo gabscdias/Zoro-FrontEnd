@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { MesasLayoutComponent } from '../mesas-layout/mesas-layout.component';
@@ -7,9 +7,14 @@ import { AjustesLayoutComponent } from '../ajustes-layout/ajustes-layout.compone
 import { DeliveryLayoutComponent } from '../delivery-layout/delivery-layout.component';
 import { ConfiguracoesLayoutComponent } from '../configuracoes-layout/configuracoes-layout.component';
 import { Features } from '../../types/features.type';
-import { FeatureEnum } from '../../enums/features.enum';
 import { CommonModule } from '@angular/common';
 import { EntregadorLayoutComponent } from '../entregador-layout/entregador-layout.component';
+import {
+  MatBottomSheetModule,
+  MatBottomSheet,
+} from '@angular/material/bottom-sheet'; // Importação corrigida
+import { BottomMenuComponent } from '../bottom-menu/bottom-menu.component';
+import { FeatureEnum } from '../../Enums/features.enum';
 
 @Component({
   selector: 'app-pages-layout',
@@ -23,19 +28,22 @@ import { EntregadorLayoutComponent } from '../entregador-layout/entregador-layou
     AjustesLayoutComponent,
     DeliveryLayoutComponent,
     ConfiguracoesLayoutComponent,
-    EntregadorLayoutComponent
+    EntregadorLayoutComponent,
+    MatBottomSheetModule, // Corrigido: Importação do MatBottomSheetModule aqui
   ],
   templateUrl: './pages-layout.component.html',
-  styleUrl: './pages-layout.component.scss',
+  styleUrls: ['./pages-layout.component.scss'],
 })
 export class PagesLayoutComponent {
+  private _bottomSheet = inject(MatBottomSheet);
+
   @Input() features: Features = [
-    { Id: 1, Name: 'Mesas' },
-    { Id: 2, Name: 'Ajustes' },
-    { Id: 3, Name: 'Histórico' },
-    { Id: 4, Name: 'Delivery' },
-    { Id: 5, Name: 'Configurações' },
-    { Id: 6, Name: 'Entregadores' },
+    { Id: 1, Name: 'Mesas', Icon: '' },
+    { Id: 2, Name: 'Ajustes', Icon: '' },
+    { Id: 3, Name: 'Histórico', Icon: '' },
+    { Id: 4, Name: 'Delivery', Icon: '' },
+    { Id: 5, Name: 'Configurações', Icon: '' },
+    { Id: 6, Name: 'Entregadores', Icon: '' },
   ];
 
   featureEnum: any = FeatureEnum;
@@ -52,5 +60,11 @@ export class PagesLayoutComponent {
     this.selectedFeature = featureId;
     this.title = feature?.Name || '';
     this.isOpen = false;
+  }
+
+  openBottomSheet(): void {
+    this._bottomSheet.open(BottomMenuComponent, {
+      panelClass: 'custom-bottom-sheet-container'
+    });
   }
 }
