@@ -14,6 +14,7 @@ import { cpfCnpjValidator } from '../../utils/cpfCnpjValidator';
 import { CommonModule } from '@angular/common';
 import { LoginRequest } from '../../types/login-request.type';
 import { EstablishmentUserService } from '../../services/establishment-user.service';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-login',
@@ -23,12 +24,14 @@ import { EstablishmentUserService } from '../../services/establishment-user.serv
     ReactiveFormsModule,
     InputComponent,
     CommonModule,
+    LoadingComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   loginForm!: FormGroup;
+  isLoading: boolean = false;
 
   constructor(
     private router: Router,
@@ -47,6 +50,7 @@ export class LoginComponent {
   }
 
   submit() {
+    this.isLoading = true;
     if (this.loginForm.valid) {
       const loginRequest: LoginRequest = {
         userLogin: this.loginForm.value.document,
@@ -72,11 +76,14 @@ export class LoginComponent {
               }
             },
             (error) => {
-              console.log('Erro ao carregar estabelecimentos.');
+              this.loginService.logout();
+              this.isLoading = false;
+              this.toastrService.error('Erro ao carregar estabelecimentos do usuário.');
             }
           );
         },
         error: () => {
+          this.isLoading = false;
           this.toastrService.error('Erro ao realizar login!');
         },
       });

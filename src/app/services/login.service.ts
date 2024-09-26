@@ -28,11 +28,12 @@ export class LoginService {
       );
   }
 
-  // logout() {
-  //   localStorage.removeItem('refreshToken');
-  // }
-
-  // isAuthenticated(): boolean {
-  //   return !!localStorage.getItem('refreshToken');
-  // }
+  getLoginState() {
+    return !!localStorage.getItem('accessToken');
+  }
+  
+  logout() {
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('refreshToken');
+  }
 }
