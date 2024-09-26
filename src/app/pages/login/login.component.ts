@@ -51,45 +51,46 @@ export class LoginComponent {
 
   submit() {
     this.isLoading = true;
-    if (this.loginForm.valid) {
-      const loginRequest: LoginRequest = {
-        userLogin: this.loginForm.value.document,
-        password: this.loginForm.value.password,
-        twoFactorCode: '',
-        twoFactorRecoveryCode: '',
-        useCookies: true,
-        useSessionCookies: true,
-        serviceProvider: null,
-      };
-      this.loginService.login(loginRequest).subscribe({
-        next: () => {
-          let estabelecimentos;
-          this.establishmentUserService.getEstablishmentsUser().subscribe(
-            (data) => {
-              estabelecimentos = data;
-              if (estabelecimentos != null) {
-                if (estabelecimentos.length > 1) {
-                  this.router.navigate(['/estabelecimentos']);
-                } else {
-                  this.router.navigate(['/index']);
-                }
-              }
-            },
-            (error) => {
-              this.loginService.logout();
-              this.isLoading = false;
-              this.toastrService.error('Erro ao carregar estabelecimentos do usuário.');
-            }
-          );
-        },
-        error: () => {
-          this.isLoading = false;
-          this.toastrService.error('Erro ao realizar login!');
-        },
-      });
-    } else {
-      this.invalidFields(this.loginForm);
-    }
+    this.router.navigate(['/index']);
+    // if (this.loginForm.valid) {
+    //   const loginRequest: LoginRequest = {
+    //     userLogin: this.loginForm.value.document,
+    //     password: this.loginForm.value.password,
+    //     twoFactorCode: '',
+    //     twoFactorRecoveryCode: '',
+    //     useCookies: true,
+    //     useSessionCookies: true,
+    //     serviceProvider: null,
+    //   };
+    //   this.loginService.login(loginRequest).subscribe({
+    //     next: () => {
+    //       let estabelecimentos;
+    //       this.establishmentUserService.getEstablishmentsUser().subscribe(
+    //         (data) => {
+    //           estabelecimentos = data;
+    //           if (estabelecimentos != null) {
+    //             if (estabelecimentos.length > 1) {
+    //               this.router.navigate(['/estabelecimentos']);
+    //             } else {
+    //               this.router.navigate(['/index']);
+    //             }
+    //           }
+    //         },
+    //         (error) => {
+    //           this.loginService.logout();
+    //           this.isLoading = false;
+    //           this.toastrService.error('Erro ao carregar estabelecimentos do usuário.');
+    //         }
+    //       );
+    //     },
+    //     error: () => {
+    //       this.isLoading = false;
+    //       this.toastrService.error('Erro ao realizar login!');
+    //     },
+    //   });
+    // } else {
+    //   this.invalidFields(this.loginForm);
+    // }
   }
 
   navigate() {
