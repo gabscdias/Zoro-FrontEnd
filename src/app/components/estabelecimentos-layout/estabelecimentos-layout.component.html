@@ -1,0 +1,26 @@
+<main>
+  <section class="user-info">
+    <h1>Bem vindo, {{usuarioLogado.firstName}}</h1>
+    <app-logout-button></app-logout-button>
+  </section>
+  <section class="estabelecimentos">
+    <h1>Escolha o estabelecimento!</h1>
+    <div class="table-grid">
+      <div *ngFor="let estabelecimento of filteredData">
+        <div
+          class="table-card"
+          (click)="selecionarEstabelecimento(estabelecimento)"
+        >
+          <div class="card-content">
+            <nz-avatar
+              [nzSize]="64"
+              nzIcon="user"
+              [nzSrc]="estabelecimento.logotipo"
+            ></nz-avatar>
+            <h2>{{ estabelecimento.nomeFantasia }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

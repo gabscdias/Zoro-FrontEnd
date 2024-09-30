@@ -4,6 +4,7 @@ import { IndexComponent } from './pages/index/index.component';
 import { CozinhaComponent } from './pages/cozinha/cozinha.component';
 import { EntregadorComponent } from './pages/entregador/entregador.component';
 import { AuthorizedGuard } from './guards/authorized.guard';
+import { EstabelecimentosComponent } from './pages/estabelecimentos/estabelecimentos.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,11 @@ export const routes: Routes = [
   {
     path: 'entregador',
     component: EntregadorComponent,
+    canActivate: [AuthorizedGuard]
+  },
+  {
+    path: 'estabelecimentos',
+    component: EstabelecimentosComponent,
     canActivate: [AuthorizedGuard]
   },
 ];

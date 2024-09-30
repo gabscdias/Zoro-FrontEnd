@@ -1,0 +1,81 @@
+@import "../../../styles/variables.scss";
+
+main {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  background: #eeeeee;
+  color: $text-color;
+
+  .user-info {
+    display: flex;
+    justify-content: space-between; /* Alinha o h1 à esquerda e o botão de logout à direita */
+    align-items: center; /* Centraliza verticalmente */
+  
+    h1 {
+      margin: 0; /* Remove o margin padrão do h1 para evitar desalinhos */
+    }
+
+    app-logout-button {
+      /* Se precisar estilizar o botão adicionalmente, adicione aqui */
+    }
+  }
+
+  .estabelecimentos {
+    padding-top: 32px;
+    gap: 8px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .table-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 8px;
+    padding: 0;
+  }
+
+  .table-card {
+    padding: 1rem;
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo verticalmente */
+    border: solid 1px $primary-color;
+    border-radius: 10px;
+
+    background-color: #ddd;
+    color: rgb(85, 85, 85);
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column; /* Organiza os itens em coluna */
+    justify-content: space-between; /* Espaça os itens verticalmente */
+    align-items: center; /* Alinha os itens ao centro */
+    height: 100%; /* Garante que o conteúdo ocupe toda a altura do cartão */
+  }
+
+  .table-card h2 {
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 768px) {
+    .table-grid{
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .table-grid{
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+  
+}
+

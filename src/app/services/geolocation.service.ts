@@ -49,8 +49,6 @@ export class GeolocationService {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
     };
-    // console.log(locationData);
-
     sessionStorage.setItem('locationData', JSON.stringify(locationData));
     return of(locationData);
   }
@@ -73,9 +71,6 @@ export class GeolocationService {
           locationData.latitude = parsedLocation.latitude;
           locationData.longitude = parsedLocation.longitude;
         }
-
-        console.log(locationData);
-
         // Exemplo de alteração das coordenadas (simulação)
         // this.currentLocation.latitude += 0.0001;  // Simular movimentação
         // this.currentLocation.longitude += 0.0001;

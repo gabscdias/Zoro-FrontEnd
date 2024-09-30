@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { LoginRequest } from '../../types/login-request.type';
 import { EstablishmentUserService } from '../../services/establishment-user.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ import { LoadingComponent } from '../../components/loading/loading.component';
     ReactiveFormsModule,
     InputComponent,
     CommonModule,
-    LoadingComponent
+    LoadingComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -37,7 +38,8 @@ export class LoginComponent {
     private router: Router,
     private loginService: LoginService,
     private toastrService: ToastrService,
-    private establishmentUserService: EstablishmentUserService
+    private establishmentUserService: EstablishmentUserService,
+    private userService: UserService
   ) {
     this.loginForm = new FormGroup({
       //Criar validador para documento(CPF ou CNPJ)
@@ -63,11 +65,21 @@ export class LoginComponent {
       };
       this.loginService.login(loginRequest).subscribe({
         next: () => {
+          this.userService.getUserInfo().subscribe((userInfo) => {
+            if (userInfo != null) {
+              localStorage.setItem('usuarioLogado', JSON.stringify(userInfo));
+            }
+          });
           let estabelecimentos;
           this.establishmentUserService.getEstablishmentsUser().subscribe(
             (data) => {
               estabelecimentos = data;
               if (estabelecimentos != null) {
+                localStorage.setItem(
+                  'estabelecimentos',
+                  JSON.stringify(estabelecimentos)
+                );
+
                 if (estabelecimentos.length > 1) {
                   this.router.navigate(['/estabelecimentos']);
                 } else {
@@ -78,7 +90,9 @@ export class LoginComponent {
             (error) => {
               this.loginService.logout();
               this.isLoading = false;
-              this.toastrService.error('Erro ao carregar estabelecimentos do usuário.');
+              this.toastrService.error(
+                'Erro ao carregar estabelecimentos do usuário.'
+              );
             }
           );
         },
@@ -99,28 +113,18 @@ export class LoginComponent {
   invalidFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
-
       if (control && control.invalid) {
         const errors = control.errors;
-
-        console.log(`Campo inválido: ${field}`);
-
         if (errors) {
           if (errors['invalidDocument']) {
-            console.log(`${field} contém um CPF inválido.`);
             this.toastrService.error('CPF/CNPJ inválido.');
           }
-
           // Verifica outros erros como required, minlength
           if (errors['required']) {
-            console.log(`${field} é obrigatório.`);
             const fieldName = field === 'password' ? 'Senha' : 'Documento';
             this.toastrService.error(`${fieldName} é obrigatório.`);
           }
           if (errors['minlength']) {
-            console.log(
-              `${field} deve ter no mínimo ${errors['minlength'].requiredLength} caracteres.`
-            );
             this.toastrService.error(
               `A senha deve ter no mínimo ${errors['minlength'].requiredLength} caracteres.`
             );
@@ -129,4 +133,7 @@ export class LoginComponent {
       }
     });
   }
+}
+function next(value: object): void {
+  throw new Error('Function not implemented.');
 }
