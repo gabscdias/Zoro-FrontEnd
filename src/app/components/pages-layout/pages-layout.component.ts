@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { MesasLayoutComponent } from '../mesas-layout/mesas-layout.component';
@@ -34,22 +34,82 @@ import { FeatureEnum } from '../../Enums/features.enum';
   templateUrl: './pages-layout.component.html',
   styleUrls: ['./pages-layout.component.scss'],
 })
-export class PagesLayoutComponent {
+export class PagesLayoutComponent implements OnInit {
   private _bottomSheet = inject(MatBottomSheet);
 
   @Input() features: Features = [
-    { Id: 1, Name: 'Mesas', Icon: '' },
-    { Id: 2, Name: 'Ajustes', Icon: '' },
-    { Id: 3, Name: 'Histórico', Icon: '' },
-    { Id: 4, Name: 'Delivery', Icon: '' },
-    { Id: 5, Name: 'Configurações', Icon: '' },
-    { Id: 6, Name: 'Entregadores', Icon: '' },
+    {
+      Id: 1,
+      Name: 'Mesas',
+      Description: '',
+      Ativo: true,
+      ItemMenu: true,
+      Icon: '',
+    },
+    {
+      Id: 2,
+      Name: 'Ajustes',
+      Description: '',
+      Ativo: true,
+      ItemMenu: true,
+      Icon: '',
+    },
+    {
+      Id: 3,
+      Name: 'Histórico',
+      Description: '',
+      Ativo: true,
+      ItemMenu: true,
+      Icon: '',
+    },
+    {
+      Id: 4,
+      Name: 'Delivery',
+      Description: '',
+      Ativo: true,
+      ItemMenu: true,
+      Icon: '',
+    },
+    {
+      Id: 5,
+      Name: 'Configurações',
+      Description: '',
+      Ativo: true,
+      ItemMenu: true,
+      Icon: '',
+    },
+    {
+      Id: 6,
+      Name: 'Entregadores',
+      Description: '',
+      Ativo: true,
+      ItemMenu: true,
+      Icon: '',
+    },
   ];
 
   featureEnum: any = FeatureEnum;
   isOpen: boolean = false;
   title: string = 'Mesas';
   selectedFeature: number = 1;
+  selectedEstablishment: any;
+  establishmentId: string = '';
+
+  constructor() {}
+
+  ngOnInit(): void {
+    debugger;
+    this.selectedEstablishment = JSON.parse(
+      localStorage.getItem('estabelecimentoSelecionado') || '[]'
+    );
+    if (
+      this.selectedEstablishment !== null ||
+      this.selectedEstablishment !== undefined
+    ) {
+      this.establishmentId = this.selectedEstablishment.id;
+      this.getEstablishmentUserFeatures();
+    }
+  }
 
   toggleSidebar() {
     this.isOpen = !this.isOpen;
@@ -64,7 +124,9 @@ export class PagesLayoutComponent {
 
   openBottomSheet(): void {
     this._bottomSheet.open(BottomMenuComponent, {
-      panelClass: 'custom-bottom-sheet-container'
+      panelClass: 'custom-bottom-sheet-container',
     });
   }
+
+  getEstablishmentUserFeatures() {}
 }

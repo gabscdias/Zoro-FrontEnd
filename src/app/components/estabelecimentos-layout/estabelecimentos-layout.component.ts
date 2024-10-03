@@ -26,7 +26,7 @@ export class EstabelecimentosLayoutComponent implements OnInit {
   }
 
   selecionarEstabelecimento(estabelecimento: any){
-    console.log(estabelecimento);
-
+    localStorage.setItem('estabelecimentoSelecionado', JSON.stringify(estabelecimento));
+    this.router.navigate(['/index']);
   }
 }

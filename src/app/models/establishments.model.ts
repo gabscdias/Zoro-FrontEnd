@@ -1,6 +1,7 @@
 export type Establishments = Establishment[];
 
 export interface Establishment {
+  id?: string;
   nomeFantasia?: string;
   endereco?: string;
   bairro?: string;
