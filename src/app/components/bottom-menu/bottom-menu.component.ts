@@ -11,18 +11,66 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 @Component({
   selector: 'app-bottom-menu',
   standalone: true,
-  imports: [MatListModule, MatGridListModule, CommonModule, MatIconModule, NzIconModule  ],
+  imports: [
+    MatListModule,
+    MatGridListModule,
+    CommonModule,
+    MatIconModule,
+    NzIconModule,
+  ],
   templateUrl: './bottom-menu.component.html',
   styleUrl: './bottom-menu.component.scss',
 })
 export class BottomMenuComponent {
   @Input() features: Features = [
-    { Id: 1, Name: 'Mesas', Icon: 'table' },
-    { Id: 2, Name: 'Ajustes', Icon: 'control' },
-    { Id: 3, Name: 'Histórico', Icon: 'read' },
-    { Id: 4, Name: 'Delivery', Icon: 'rocket' },
-    { Id: 5, Name: 'Configurações', Icon: 'setting' },
-    { Id: 6, Name: 'Entregadores', Icon: 'rocket' },
+    {
+      Id: 1,
+      Name: 'Mesas',
+      Description: '',
+      Ativo: true,
+      ItemMenu: true,
+      Icon: 'table',
+    },
+    {
+      Id: 2,
+      Name: 'Ajustes',
+      Description: '',
+      Ativo: true,
+      ItemMenu: true,
+      Icon: 'control',
+    },
+    {
+      Id: 3,
+      Name: 'Histórico',
+      Description: '',
+      Ativo: true,
+      ItemMenu: true,
+      Icon: 'read',
+    },
+    {
+      Id: 4,
+      Name: 'Delivery',
+      Description: '',
+      Ativo: true,
+      ItemMenu: true,
+      Icon: 'rocket',
+    },
+    {
+      Id: 5,
+      Name: 'Configurações',
+      Description: '',
+      Ativo: true,
+      ItemMenu: true,
+      Icon: 'setting',
+    },
+    {
+      Id: 6,
+      Name: 'Entregadores',
+      Description: '',
+      Ativo: true,
+      ItemMenu: true,
+      Icon: 'rocket',
+    },
   ];
 
   featureEnum: any = FeatureEnum;
