@@ -1,9 +1,10 @@
+<app-loading [isLoading]="isLoading"></app-loading>
 <div class="menu-container" (swipedown)="closeMenu()">
   <div class="top-bar"></div>
   <div class="menu-grid">
-    <div class="menu-item" *ngFor="let item of features">
-      <span nz-icon [nzType]="item.Icon" nzTheme="outline" class="icon"></span>
-      <span>{{ item.Name }}</span>
+    <div class="menu-item" *ngFor="let item of features" (click)="navigate(item)">
+      <span nz-icon [nzType]="item.icon" nzTheme="outline" class="icon"></span>
+      <span>{{ item.nome }}</span>
     </div>
   </div>
 </div>

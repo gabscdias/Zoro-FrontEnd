@@ -24,10 +24,10 @@ export class EstablishmentUserService {
     );
   }
 
-  establishmentLogin(estabelecimento: any): Observable<object> {
+  establishmentLogin(establishmentId: string): Observable<object> {
     const request: EstablishmentLoginRequest = {
       applicationUserId: '',
-      establishmentId: '',
+      establishmentId: establishmentId,
     };
 
     return this.httpClient

@@ -37,56 +37,9 @@ import { FeatureEnum } from '../../Enums/features.enum';
 export class PagesLayoutComponent implements OnInit {
   private _bottomSheet = inject(MatBottomSheet);
 
-  @Input() features: Features = [
-    {
-      Id: 1,
-      Name: 'Mesas',
-      Description: '',
-      Ativo: true,
-      ItemMenu: true,
-      Icon: '',
-    },
-    {
-      Id: 2,
-      Name: 'Ajustes',
-      Description: '',
-      Ativo: true,
-      ItemMenu: true,
-      Icon: '',
-    },
-    {
-      Id: 3,
-      Name: 'Histórico',
-      Description: '',
-      Ativo: true,
-      ItemMenu: true,
-      Icon: '',
-    },
-    {
-      Id: 4,
-      Name: 'Delivery',
-      Description: '',
-      Ativo: true,
-      ItemMenu: true,
-      Icon: '',
-    },
-    {
-      Id: 5,
-      Name: 'Configurações',
-      Description: '',
-      Ativo: true,
-      ItemMenu: true,
-      Icon: '',
-    },
-    {
-      Id: 6,
-      Name: 'Entregadores',
-      Description: '',
-      Ativo: true,
-      ItemMenu: true,
-      Icon: '',
-    },
-  ];
+  establishmentData: any;
+
+  features: Features = [];
 
   featureEnum: any = FeatureEnum;
   isOpen: boolean = false;
@@ -98,16 +51,10 @@ export class PagesLayoutComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    debugger;
-    this.selectedEstablishment = JSON.parse(
-      localStorage.getItem('estabelecimentoSelecionado') || '[]'
-    );
-    if (
-      this.selectedEstablishment !== null ||
-      this.selectedEstablishment !== undefined
-    ) {
-      this.establishmentId = this.selectedEstablishment.id;
-      this.getEstablishmentUserFeatures();
+    this.selectedEstablishment = history.state.selectedEstablishment;
+
+    if (this.selectedEstablishment?.data?.features.length > 0) {
+      this.features = this.selectedEstablishment?.data?.features;
     }
   }
 
@@ -116,15 +63,16 @@ export class PagesLayoutComponent implements OnInit {
   }
 
   navigateTo(featureId: number) {
-    const feature = this.features.find((f) => f.Id === featureId);
-    this.selectedFeature = featureId;
-    this.title = feature?.Name || '';
-    this.isOpen = false;
+    // const feature = this.features.find((f) => f.id === featureId);
+    // this.selectedFeature = featureId;
+    // this.title = feature?.nome || '';
+    // this.isOpen = false;
   }
 
   openBottomSheet(): void {
     this._bottomSheet.open(BottomMenuComponent, {
       panelClass: 'custom-bottom-sheet-container',
+      data: { features: this.features },
     });
   }
 

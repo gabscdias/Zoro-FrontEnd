@@ -5,11 +5,18 @@ import { CommonModule } from '@angular/common';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { EstablishmentUserService } from '../../services/establishment-user.service';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-estabelecimentos-layout',
   standalone: true,
-  imports: [LogoutButtonComponent, CommonModule, NzAvatarModule, NzGridModule],
+  imports: [
+    LogoutButtonComponent,
+    CommonModule,
+    NzAvatarModule,
+    NzGridModule,
+    LoadingComponent,
+  ],
   templateUrl: './estabelecimentos-layout.component.html',
   styleUrl: './estabelecimentos-layout.component.scss',
 })
@@ -17,6 +24,7 @@ export class EstabelecimentosLayoutComponent implements OnInit {
   estabelecimentos: any[] = [];
   filteredData = this.estabelecimentos;
   usuarioLogado: any;
+  isLoading: boolean = false;
 
   constructor(
     private router: Router,
@@ -33,8 +41,18 @@ export class EstabelecimentosLayoutComponent implements OnInit {
     this.filteredData = estabelecimentos;
   }
 
-  selecionarEstabelecimento(estabelecimento: any) {
-    console.log(estabelecimento);
-    this.establishmentUserService.establishmentLogin(estabelecimento).subscribe((data) => {});
+  selecionarEstabelecimento(establishment: any) {
+    this.isLoading = true;
+    if (establishment?.id) {
+      this.establishmentUserService
+        .establishmentLogin(establishment.id)
+        .subscribe((data) => {
+          this.router.navigate(['/index'], {
+            state: { selectedEstablishment: data },
+          }); // Passa o data no state
+        });
+    } else {
+      this.isLoading = true;
+    }
   }
 }

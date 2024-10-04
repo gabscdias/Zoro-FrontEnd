@@ -1,10 +1,11 @@
 export type Feature = {
-  Id: number;
-  Name: string;
-  Description: string;
-  ItemMenu: boolean;
-  Ativo: boolean;
-  Icon: string;
+  id: string;
+  nome: string;
+  descricao: string;
+  itemMenu: boolean;
+  ativo: boolean;
+  icon: string;
+  navegacao: string;
 };
 
 export type Features = Feature[];
